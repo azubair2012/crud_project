@@ -8,15 +8,18 @@ const Input = () => {
       <br />
       <div className="flex items-center justify-center gap-4 text-black">
         <div className="flex flex-col gap-4">
-          <input type="text" placeholder="Full Name" />
-          <input type="number" placeholder="ID" />
+          <input type="text" placeholder="Full Name" className="rounded" />
+          <input type="number" placeholder="ID" className="rounded" />
         </div>
         <div className="flex flex-col gap-4">
-          <input type="date" placeholder="Date" />
-          <input type="text" placeholder="Position" />
+          <input type="date" placeholder="Date" className="rounded" />
+          <input type="text" placeholder="Position" className="rounded" />
         </div>
       </div>
-      <button className="rounded-full bg-slate-600 py-1 px-8 font-semibold my-6 hover:bg-slate-100 hover:text-slate-900">
+      <button
+        title="Add entry to the table"
+        className="rounded-full bg-slate-600 py-1 px-8 font-semibold my-6 hover:bg-green-800 hover:text-slate-200"
+      >
         ADD
       </button>
     </div>
