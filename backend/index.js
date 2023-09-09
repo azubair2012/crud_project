@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const connectDb = require("./config/dbConnection");
 const postRoute = require("./routers/postRoute");
+const getRoute = require("./routers/getRoute");
+const deleteRoute = require("./routers/deleteRoute");
 
 app.use(
   bodyParser.urlencoded({
@@ -16,10 +18,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/", postRoute);
+app.use("/", getRoute);
+app.use("/", deleteRoute);
 
-app.all("/", (req, res) => {
-  console.log("Just got a request!");
-  res.send("Yo!");
-});
 connectDb();
 app.listen(port || 5000);
