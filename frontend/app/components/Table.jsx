@@ -7,7 +7,7 @@ const Table = () => {
     <div className="text-[#bbd5d4] mt-16">
       <table className="w-[80vw] px-8 text-center">
         <thead className="border-y-2 border-[#04FFF7]">
-          <tr className=" text-2xl">
+          <tr className="text-2xl">
             <th>ID</th>
             <th>Name</th>
             <th>Position</th>
