@@ -10,7 +10,6 @@ const Navbar = () => {
         </div>
         <div className="text-[64px] font-extrabold">
           <h1>CRUD Project</h1>
-          <Image></Image>
         </div>
         <div className="flex justify-between gap-8 text-[24px]">
           <Link href="/">Home</Link>
