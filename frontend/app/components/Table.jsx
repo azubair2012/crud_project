@@ -1,10 +1,26 @@
 "use client";
-import React from "react";
 import { ImBin } from "react-icons/im";
 import Link from "next/link";
+import { useState } from "react";
 
 const Table = (props) => {
   let data = props.data;
+  const [Delete, setDelete] = useState();
+
+  const deleteById = async (employee) => {
+    let employeeId = employee.id;
+
+    try {
+      const response = await fetch(`http://localhost:5000/${employeeId}`, {
+        method: "DELETE",
+      });
+
+      const deletedResult = await response.json();
+      setDelete(deletedResult);
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
+  };
   console.log(data);
   return (
     <div className="text-[#bbd5d4] mt-16">
@@ -40,8 +56,9 @@ const Table = (props) => {
                   UPDATE
                 </button>{" "}
                 <button
+                  onClick={() => deleteById(employee)}
                   title="Delete Entry"
-                  className="my-2 rounded-xl p-2 bg-slate-800 hover:animate-[wiggle_0.4s_ease-in-out_infinite]"
+                  className="my-2 rounded-xl p-2 bg-slate-800 hover:bg-slate-200 hover:animate-[wiggle_0.4s_ease-in-out_infinite]"
                 >
                   <ImBin color="red" />
                 </button>

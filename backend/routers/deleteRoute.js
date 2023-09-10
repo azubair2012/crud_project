@@ -2,12 +2,12 @@ const Employee = require("../models/employee"); // Import the Country model
 const express = require("express");
 const router = express.Router();
 
-router.delete("/:name", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const { name } = req.params; // Get the country name from the URL
+    const { id } = req.params; // Get the country name from the URL
 
     // Find the country by name and delete it
-    const deletedEmployee = await Employee.findOneAndDelete({ name: name });
+    const deletedEmployee = await Employee.findOneAndDelete({ id: id });
 
     if (!deletedEmployee) {
       return res.status(404).json({ error: "Employee not found" });
