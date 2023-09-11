@@ -1,10 +1,9 @@
 "use client";
 import { ImBin } from "react-icons/im";
-import Link from "next/link";
 import { useState } from "react";
 
 const Table = (props) => {
-  let data = props.data;
+  const { data, getData } = props;
   const [Delete, setDelete] = useState();
 
   const deleteById = async (employee) => {
@@ -17,6 +16,7 @@ const Table = (props) => {
 
       const deletedResult = await response.json();
       setDelete(deletedResult);
+      getData();
     } catch (error) {
       console.error("Error deleting data:", error);
     }
@@ -37,7 +37,7 @@ const Table = (props) => {
         <tbody>
           {data?.map((employee) => (
             <tr
-              key={employee.id}
+              key={employee.index}
               className="border-y-2 border-[#04FFF7] text-lg"
             >
               <td className="border-r-2 border-[#04FFF7]">{employee.id}</td>

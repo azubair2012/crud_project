@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Table from "./Table";
 
 const Databtn = () => {
@@ -22,12 +22,16 @@ const Databtn = () => {
     }
   };
 
+  useEffect(() => {
+    getRoute();
+  }, []);
+
   const clearData = () => {
     setResponse(null);
   };
   return (
     <div className="flex flex-col justify-center items-center">
-      <Table data={Response} />
+      <Table data={Response} getData={getRoute} />
       <div className="text-white flex gap-4 w-fit">
         <button
           onClick={getRoute}
