@@ -1,29 +1,22 @@
 "use client";
 import { ImBin } from "react-icons/im";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouteData } from "../functionsModule.js";
+import { GrClose } from "react-icons/gr";
+// import Modal from "./Modal";
 
-const Table = (props) => {
-  const { data, getData } = props;
-  const [Delete, setDelete] = useState();
+const Table = () => {
+  const { Response, deleteById, getRoute } = useRouteData();
+  const [Modal, setModal] = useState(true);
+  const [modalName, setmodalName] = useState("");
+  const [modalId, setmodalId] = useState("");
 
-  const deleteById = async (employee) => {
-    let employeeId = employee.id;
+  useEffect(() => {
+    getRoute();
+  }, []);
 
-    try {
-      const response = await fetch(`http://localhost:5000/${employeeId}`, {
-        method: "DELETE",
-      });
-
-      const deletedResult = await response.json();
-      setDelete(deletedResult);
-      getData();
-    } catch (error) {
-      console.error("Error deleting data:", error);
-    }
-  };
-  console.log(data);
   return (
-    <div className="text-[#bbd5d4] mt-16">
+    <div className="text-[#bbd5d4] mt-16 flex flex-col items-center">
       <table className="w-[80vw] px-8 text-center">
         <thead className="border-y-2 border-[#04FFF7]">
           <tr className="text-2xl">
@@ -35,14 +28,21 @@ const Table = (props) => {
           </tr>
         </thead>
         <tbody>
-          {data?.map((employee) => (
+          {Response?.map((employee) => (
             <tr
-              key={employee.index}
+              key={employee.id}
               className="border-y-2 border-[#04FFF7] text-lg"
             >
-              <td className="border-r-2 border-[#04FFF7]">{employee.id}</td>
-              <td className="border-r-2 border-[#04FFF7]">{employee.name}</td>
-              <td className="border-r-2 border-[#04FFF7]">
+              <td className="border-r-2 border-[#04FFF7]" key={employee.index}>
+                {employee.id}
+              </td>
+              <td className="border-r-2 border-[#04FFF7]" key={employee.name}>
+                {employee.name}
+              </td>
+              <td
+                className="border-r-2 border-[#04FFF7]"
+                key={employee.position}
+              >
                 {employee.position}
               </td>
               <td className="border-r-2 border-[#04FFF7]">
@@ -50,6 +50,11 @@ const Table = (props) => {
               </td>
               <td className="flex justify-evenly items-center">
                 <button
+                  onClick={() => {
+                    setmodalName(employee.name);
+                    setmodalId(employee.id);
+                    setModal(false);
+                  }}
                   title="Update Entry"
                   className="my-2 text-white bg-green-800 rounded-xl p-1"
                 >
@@ -67,6 +72,77 @@ const Table = (props) => {
           ))}
         </tbody>
       </table>
+      <div className="text-white w-fit">
+        <button
+          onClick={getRoute}
+          className="rounded-full bg-slate-600 py-1 px-8 font-semibold my-6 hover:animate-pulse hover:bg-green-800 hover:text-slate-200"
+        >
+          Get List
+        </button>
+      </div>
+
+      {/* Modal */}
+      <div className="flex justify-center ">
+        <div className="absolute top-0 z-10">
+          <div
+            className={
+              Modal
+                ? "hidden"
+                : "border-2 backdrop-blur-lg h-[100vh] w-[100vw] flex justify-center items-center"
+            }
+          >
+            <button
+              className="rounded-full items-center  bg-red-300 py-1 px-8 font-semibold my-6 hover:bg-red-800 hover:text-slate-200 absolute bottom-40"
+              onClick={() => {
+                setModal(true);
+              }}
+            >
+              <GrClose />
+            </button>
+            <div className="rounded-2xl bg-slate-950 border-2 border-[#04FFF7] text-white mt-8 pt-4 px-4 text-center">
+              <div id="form">
+                <div className="flex flex-col gap-4 ">
+                  <h1 className="border-b-2 mb-2">Update {modalName}</h1>
+                  <div className="flex flex-col text-black gap-4 ">
+                    <input
+                      id="name"
+                      type="text"
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Full Name"
+                      className="text-center h-10 rounded"
+                    />
+                    <input
+                      id="id"
+                      type="number"
+                      value={modalId}
+                      readonly
+                      placeholder="ID"
+                      className="text-center font-bold h-10 rounded"
+                    />
+                    <input
+                      id="date"
+                      type="date"
+                      placeholder="Date"
+                      className="text-center h-10 rounded"
+                    />
+                    <input
+                      id="position"
+                      type="text"
+                      onChange={(e) => setPosition(e.target.value)}
+                      placeholder="Position"
+                      className="text-center h-10 rounded"
+                    />
+                  </div>
+                </div>
+              </div>
+              <button className="rounded-full bg-slate-600 py-1 px-8 font-semibold my-6 hover:bg-green-800 hover:text-slate-200">
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Modal end */}
     </div>
   );
 };
