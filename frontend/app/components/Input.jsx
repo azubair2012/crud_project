@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouteData } from "../functionsModule.js";
 
 const Input = () => {
   const [Id, setId] = useState("");
@@ -7,6 +8,7 @@ const Input = () => {
   const [Position, setPosition] = useState("");
   const [Date, setDate] = useState("");
   const [Response, setResponse] = useState("");
+  const { getRoute } = useRouteData();
 
   const submitData = async (event) => {
     event.preventDefault();
@@ -28,12 +30,10 @@ const Input = () => {
       });
       const result = await res.json();
       setResponse(result);
-      const onSubmit = () => {
-        setId("");
-        setName("");
-        setPosition("");
-        setDate("");
-      };
+      setId("");
+      setName("");
+      setPosition("");
+      setDate("");
     }
   };
 

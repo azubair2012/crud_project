@@ -9,7 +9,51 @@ const Table = () => {
   const { Response, deleteById, getRoute } = useRouteData();
   const [Modal, setModal] = useState(true);
   const [modalName, setmodalName] = useState("");
-  const [modalId, setmodalId] = useState("");
+  const [modalDate, setmodalDate] = useState("");
+  const [modalPosition, setmodalPosition] = useState("");
+  const [employeeName, setemployeeName] = useState("");
+  const [employeeId, setemployeeId] = useState("");
+  const [UpdateResult, setUpdateResult] = useState("");
+
+  //updating data
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+    if (!modalName || !modalPosition || !modalDate) {
+      alert("Fill in the required info please.");
+    } else {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/${employeeId._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: modalName,
+              position: modalPosition,
+              date: modalDate,
+              id: employeeId,
+            }),
+          }
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+          setUpdateResult(result);
+          setmodalName("");
+          setmodalPosition("");
+          setmodalDate("");
+          getRoute();
+        } else {
+          console.error("Failed to update data");
+        }
+      } catch (error) {
+        console.error("Error updating data:", error);
+      }
+    }
+  };
+  //update data end
 
   useEffect(() => {
     getRoute();
@@ -51,14 +95,14 @@ const Table = () => {
               <td className="flex justify-evenly items-center">
                 <button
                   onClick={() => {
-                    setmodalName(employee.name);
-                    setmodalId(employee.id);
+                    setemployeeName(employee.name);
+                    setemployeeId({ _id: employee._id, id: employee.id });
                     setModal(false);
                   }}
                   title="Update Entry"
                   className="my-2 text-white bg-green-800 rounded-xl p-1"
                 >
-                  UPDATE
+                  Update
                 </button>{" "}
                 <button
                   onClick={() => deleteById(employee)}
@@ -102,40 +146,44 @@ const Table = () => {
             <div className="rounded-2xl bg-slate-950 border-2 border-[#04FFF7] text-white mt-8 pt-4 px-4 text-center">
               <div id="form">
                 <div className="flex flex-col gap-4 ">
-                  <h1 className="border-b-2 mb-2">Update {modalName}</h1>
+                  <div>
+                    <h1>Name: {employeeName}</h1> <h1>ID: {employeeId.id}</h1>
+                  </div>
+
                   <div className="flex flex-col text-black gap-4 ">
                     <input
                       id="name"
                       type="text"
-                      onChange={(e) => setName(e.target.value)}
+                      value={modalName}
+                      onChange={(e) => setmodalName(e.target.value)}
                       placeholder="Full Name"
-                      className="text-center h-10 rounded"
-                    />
-                    <input
-                      id="id"
-                      type="number"
-                      value={modalId}
-                      readonly
-                      placeholder="ID"
-                      className="text-center font-bold h-10 rounded"
-                    />
-                    <input
-                      id="date"
-                      type="date"
-                      placeholder="Date"
                       className="text-center h-10 rounded"
                     />
                     <input
                       id="position"
                       type="text"
-                      onChange={(e) => setPosition(e.target.value)}
+                      value={modalPosition}
+                      onChange={(e) => setmodalPosition(e.target.value)}
                       placeholder="Position"
+                      className="text-center h-10 rounded"
+                    />
+                    <input
+                      id="date"
+                      type="date"
+                      value={modalDate}
+                      onChange={(e) => {
+                        setmodalDate(e.target.value);
+                      }}
+                      placeholder="Date"
                       className="text-center h-10 rounded"
                     />
                   </div>
                 </div>
               </div>
-              <button className="rounded-full bg-slate-600 py-1 px-8 font-semibold my-6 hover:bg-green-800 hover:text-slate-200">
+              <button
+                onClick={handleUpdate}
+                className="rounded-full bg-slate-600 py-1 px-8 font-semibold my-6 hover:bg-green-800 hover:text-slate-200"
+              >
                 Update
               </button>
             </div>

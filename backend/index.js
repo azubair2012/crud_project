@@ -8,7 +8,7 @@ const connectDb = require("./config/dbConnection");
 const postRoute = require("./routers/postRoute");
 const getRoute = require("./routers/getRoute");
 const deleteRoute = require("./routers/deleteRoute");
-
+const updateRoute = require("./routers/updateRoute");
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -20,6 +20,7 @@ app.use(cors());
 app.use("/", postRoute);
 app.use("/", getRoute);
 app.use("/", deleteRoute);
+app.use("/", updateRoute);
 
 connectDb();
 app.listen(port || 5000);
