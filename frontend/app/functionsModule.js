@@ -20,9 +20,8 @@ export function useRouteData() {
             });
             const result = await response.json();
             setResponse(result);
-            console.log(result);
         } catch (error) {
-            console.log(error);
+            alert(error);
         }
     };
 

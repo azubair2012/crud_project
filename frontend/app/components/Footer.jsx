@@ -6,15 +6,15 @@ import { FiDribbble } from "react-icons/fi";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <div className="absolute text-white bottom-0 border-double border-t-4 border-[#04FFF7] w-fit text-center">
+    <div className=" text-white border-double border-t-4 border-[#04FFF7] w-fit mt-auto text-center">
       <div className=" text-3xl pt-2">
         Building your online presence, one pixel at a time
       </div>
 
-      <div className="flex justify-evenly p-4 border-double border-x-4 gap-[64px] border-[#04FFF7]">
+      <div className="flex justify-evenly p-4 gap-[64px]">
         <p>
           Built with 🤍 by{" "}
-          <Link href="https://studiozubair.com/">Studio Zubair</Link>{" "}
+          <Link href="https://studiozubair.com/">Studio Zubair</Link>
         </p>
         {/* btn */}
         <div className="flex justify-center gap-4">

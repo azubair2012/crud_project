@@ -74,7 +74,7 @@ const Table = () => {
         <tbody>
           {Response?.map((employee) => (
             <tr
-              key={employee.id}
+              key={employee._id}
               className="border-y-2 border-[#04FFF7] text-lg"
             >
               <td className="border-r-2 border-[#04FFF7]" key={employee.index}>
