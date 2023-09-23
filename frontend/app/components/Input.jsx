@@ -16,7 +16,7 @@ const Input = () => {
     if (!Name || !Id || !Position || !Date) {
       alert("Fill in the required feilds please.");
     } else {
-      const res = await fetch("http://localhost:5000", {
+      const res = await fetch("https://cloudy-galoshes-dog.cyclic.cloud", {
         body: JSON.stringify({
           id: Id,
           name: Name,

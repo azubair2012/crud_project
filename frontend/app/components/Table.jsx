@@ -23,7 +23,7 @@ const Table = () => {
     } else {
       try {
         const response = await fetch(
-          `http://localhost:5000/${employeeId._id}`,
+          `https://cloudy-galoshes-dog.cyclic.cloud/${employeeId._id}`,
           {
             method: "PUT",
             headers: {

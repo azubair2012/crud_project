@@ -12,7 +12,7 @@ export function useRouteData() {
 
   const getRoute = async () => {
     try {
-      const response = await fetch("http://localhost:5000", {
+      const response = await fetch("https://cloudy-galoshes-dog.cyclic.cloud", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -29,9 +29,12 @@ export function useRouteData() {
     let employeeId = employee.id;
 
     try {
-      const response = await fetch(`http://localhost:5000/${employeeId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://cloudy-galoshes-dog.cyclic.cloud/${employeeId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       const deletedResult = await response.json();
       setDelete(deletedResult);
