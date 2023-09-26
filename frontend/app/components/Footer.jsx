@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { BsFacebook, BsLinkedin, BsWhatsapp } from "react-icons/bs";
 import { ImInstagram } from "react-icons/im";
